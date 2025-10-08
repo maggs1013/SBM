@@ -8,8 +8,11 @@ on:
 jobs:
   phase0:
     runs-on: ubuntu-latest
+
+    # 👇 This line tells Python where to find src/sbm/utils
     env:
       PYTHONPATH: "${{ github.workspace }}"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,6 +29,7 @@ jobs:
 
       - name: Merge training dataset
         run: |
+          echo "Running merge_training_dataset.py with PYTHONPATH=$PYTHONPATH"
           python scripts/merge_training_dataset.py --config config/phase0_config.yaml
 
       - name: Baseline backtest + calibration
