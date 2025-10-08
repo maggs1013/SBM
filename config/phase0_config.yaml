@@ -1,0 +1,31 @@
+# Phase 0 configuration
+must_have_leagues:
+  - ENG-Premier League
+  - ESP-LaLiga
+  - ITA-Serie A
+  - GER-Bundesliga
+  - FRA-Ligue 1
+  - NED-Eredivisie
+  - POR-Liga Portugal
+  - TUR-Super Lig
+  - BEL-Pro League
+
+raw_dir: data/raw
+
+football_data_hints:
+  - "**/*.csv"
+understat_hints:
+  - "**/understat/**/*.parquet"
+fbref_hints:
+  - "**/fbref/**/*.*"
+
+training_parquet: data/training/historical_training_dataset.parquet
+reports_dir: reports
+
+skellam:
+  goal_diff_range: 10
+calibration:
+  method: isotonic
+  min_samples: 500
+kelly:
+  fraction: 0.25

@@ -1,0 +1,9 @@
+ENG-Premier League
+ESP-LaLiga
+ITA-Serie A
+GER-Bundesliga
+FRA-Ligue 1
+NED-Eredivisie
+POR-Liga Portugal
+TUR-Super Lig
+BEL-Pro League
