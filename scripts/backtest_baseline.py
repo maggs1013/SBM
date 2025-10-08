@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
+# SBM Phase 0 - Baseline Backtest (Fixed Imports)
+
+import sys, os
+# ✅ Add repo root and src folder to path so GitHub Actions & local both work
+sys.path.extend([os.getcwd(), os.path.join(os.getcwd(), "src")])
 import argparse, yaml
 from pathlib import Path
 import pandas as pd
