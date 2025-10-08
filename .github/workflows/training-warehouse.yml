@@ -9,9 +9,9 @@ jobs:
   phase0:
     runs-on: ubuntu-latest
 
-    # 👇 This line tells Python where to find src/sbm/utils
+    # Make Python see both the repo root AND src/
     env:
-      PYTHONPATH: "${{ github.workspace }}"
+      PYTHONPATH: "${{ github.workspace }}:${{ github.workspace }}/src"
 
     steps:
       - name: Checkout
@@ -29,7 +29,7 @@ jobs:
 
       - name: Merge training dataset
         run: |
-          echo "Running merge_training_dataset.py with PYTHONPATH=$PYTHONPATH"
+          echo "PYTHONPATH=$PYTHONPATH"
           python scripts/merge_training_dataset.py --config config/phase0_config.yaml
 
       - name: Baseline backtest + calibration
