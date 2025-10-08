@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-# add these two lines at the very top (before other imports) — safe even if step C is done
+# SBM Phase 0 - Merge Training Dataset (Fixed Imports)
+
 import sys, os
+# ✅ Add repo root and src folder to path so GitHub Actions & local both work
 sys.path.extend([os.getcwd(), os.path.join(os.getcwd(), "src")])
 
-# then use these imports
-from sbm.utils.odds import shin_fair_probs
-from sbm.utils.names import build_name_map, canonicalize
 import argparse, sys
 from pathlib import Path
 import pandas as pd
 import numpy as np
 import yaml
 from dateutil import parser as dtp
-from src.sbm.utils.odds import shin_fair_probs
-from src.sbm.utils.names import build_name_map, canonicalize
+
+# ✅ Use updated import path (no "src." prefix)
+from sbm.utils.odds import shin_fair_probs
+from sbm.utils.names import build_name_map, canonicalize
 
 def parse_date(x):
     try:
@@ -47,10 +48,9 @@ def load_fdorg(paths, names):
         df = df[df['date'].notna()]
         df['home_team'] = df['home_raw'].apply(lambda x: canonicalize(x, names, 'fd'))
         df['away_team'] = df['away_raw'].apply(lambda x: canonicalize(x, names, 'fd'))
-        # goals
         if 'FTHG' in df.columns: df = df.rename(columns={'FTHG':'goals_home'})
         if 'FTAG' in df.columns: df = df.rename(columns={'FTAG':'goals_away'})
-        # odds (prefer PS*, else B365*)
+
         def pick(cols):
             for c in cols:
                 if c in df.columns: return df[c]
@@ -90,7 +90,6 @@ def load_understat(paths, names):
             df = pd.read_parquet(p)
         except Exception:
             continue
-        # standardize
         rename = {'home_team':'home_raw','away_team':'away_raw','date':'date'}
         for k,v in list(rename.items()):
             if k not in df.columns and f"{k}_x" in df.columns:
@@ -119,7 +118,6 @@ def main():
     us = load_understat(discover(raw, cfg.get('understat_hints', ['**/*.parquet'])), names)
     if not us.empty:
         fd = fd.merge(us, on=['date','home_team','away_team'], how='left', suffixes=('',''))
-    # match_key
     mk = fd['date'].dt.strftime('%Y%m%d') + '__' + fd['home_team'] + '__vs__' + fd['away_team']
     fd['match_key'] = mk
 
