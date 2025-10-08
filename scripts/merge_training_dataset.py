@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+# add these two lines at the very top (before other imports) — safe even if step C is done
+import sys, os
+sys.path.extend([os.getcwd(), os.path.join(os.getcwd(), "src")])
+
+# then use these imports
+from sbm.utils.odds import shin_fair_probs
+from sbm.utils.names import build_name_map, canonicalize
 import argparse, sys
 from pathlib import Path
 import pandas as pd
