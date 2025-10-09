@@ -9,7 +9,8 @@ jobs:
   phase0:
     runs-on: ubuntu-latest
 
-    # Make Python see both the repo root AND src/
+    # 👇 Add this block directly under runs-on
+    # It makes Python see both the repo root and the src folder
     env:
       PYTHONPATH: "${{ github.workspace }}:${{ github.workspace }}/src"
 
